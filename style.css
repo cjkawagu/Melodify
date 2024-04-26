@@ -1,0 +1,179 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.sidebar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#212121;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+	flex-direction: column;
+
+    .sidebarLogo{
+        height: 150px;
+        text-align: center;
+		position: relative;
+		top: 0px;
+    }
+
+	.sidebarImg{
+		height: 250px;
+		text-align: center;
+		border-radius: 20px;
+	}
+}
+
+.topMenu{
+	margin-left: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+	flex-direction: row;
+}
+
+.bottomMenu{
+	margin-left: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+	flex-direction: row;
+}
+
+.dataVisualization{
+	width: calc(100% - 400px);
+	margin-left: 400px;
+	margin-top: 5%;
+	height: 80vh;
+	overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    text-align: center;
+    box-sizing: border-box;
+	flex-direction: row;
+}
+
+.background {
+	background: #121212;
+	background-blend-mode: darken;
+	background-size: cover;
+}
+
+h1 {
+	color: #1DB954;
+	text-align: center;
+	font-family: "Circular Std";
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+h2 {
+	color: #1DB954;
+	text-align: center;
+	font-family: "Circular Std";
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+h3 {
+	color: #B3B3B3;
+	text-align: center;
+	font-family: "Circular Std";
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+h4 {
+	color: #B3B3B3;
+	text-align: center;
+	font-family: "Circular Std";
+	font-size: 36px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+.switch-toggle {
+	float: left;
+	background: #535353;
+	border-radius: 20px;
+}
+
+ .switch-toggle input {
+   position: absolute;
+   opacity: 0;
+}
+
+.switch-toggle input + label {
+   padding: 10px;
+   float:left;
+   color: #fff;
+   font-family: "Circular Std";
+   cursor: pointer;
+}
+
+.switch-toggle input:checked + label {
+   background: #1DB954;
+   border-radius: 20px;
+}
+
+.grid-container{
+	display: grid;
+	grid-template-columns: auto, auto, auto;
+	column-gap: 30px;
+	row-gap: 30px;
+}
+
+.grid-item{
+	background-color:#1DB954;
+	font-family: "Circular Std";
+	color: #fff;
+	border: 1px;
+	padding: 20px;
+	text-align: left;
+	border-radius: 10px;
+}
+
+.selected{
+	border-width: thick;
+	border-color: white;
+}
+
+.searchBar{
+	background-color: #535353;
+}
+
+.zoomButton{
+	background-color: #535353;
+	border-radius: 20px;
+	color: white;
+	height: 50px;
+}
