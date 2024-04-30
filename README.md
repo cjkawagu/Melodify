@@ -1,0 +1,1 @@
+Melodify is a comprehensive Spotify data analysis service created for ACAD 280 - Designing for Digital Experiences at the USC Iovine and Young Academy for the Arts, Technology, and Business of Innovation. 
