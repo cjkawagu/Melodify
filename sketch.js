@@ -76,7 +76,7 @@ function init(filename){
               }
               
               // Night
-              if(0 <= entry[1].hour < 6 || 2100 <= entry[1].time <= 24){
+              if(0 <= entry[1].hour < 6 || 21 <= entry[1].time <= 24){
                 entry[1].nightListens++;
               }
             }
@@ -172,33 +172,33 @@ function updateMaxPlays(data){
   });
 }
 
-// main draw function
-function draw() {
-  if(!dataReady) return;
-  background(0);
-  scale(zoomLevel);
+// // main draw function
+// function draw() {
+//   if(!dataReady) return;
+//   background(0);
+//   scale(zoomLevel);
 
-  let x = 50;
-  const y = height / 2;
+//   let x = 50;
+//   const y = height / 2;
 
-  oneMonthDataTimeSorted.forEach((value, key) =>{
-    const diameter = map(value.plays, 0, maxPlays, 10, 100);
-    ellipse(x, y, diameter, diameter);
+//   oneMonthDataTimeSorted.forEach((value, key) =>{
+//     const diameter = map(value.plays, 0, maxPlays, 10, 100);
+//     ellipse(x, y, diameter, diameter);
 
-    fill(255);
-    noStroke();
-    textAlign(Center, Center);
-    textSize(10);
-    text(`${value.song} by ${value.artist}`, x, y);
+//     fill(255);
+//     noStroke();
+//     textAlign(Center, Center);
+//     textSize(10);
+//     text(`${value.song} by ${value.artist}`, x, y);
 
-    x+= diameter + 20;
-  });
-}
+//     x+= diameter + 20;
+//   });
+// }
 
 function setup() {
-  var canvas = createCanvas(windowWidth-400, windowHeight-(windowHeight*0.2));
-  canvas.parent("sketch");
-  frameRate(60);
+  // var canvas = createCanvas(windowWidth-400, windowHeight-(windowHeight*0.2));
+  // // canvas.parent("sketch");
+  // frameRate(60);
 
   init("data/Audio_2023-2024.json").then(() => {
     updateMaxPlays(oneMonthDataTimeSorted); // Ensure max plays is calculated after data is ready
@@ -220,3 +220,11 @@ function zoomOut(){
 function windowResized() {
   resizeCanvas(windowWidth-400, windowHeight-(windowHeight*0.2));
 }
+
+// function listView(dataMap){
+  
+// }
+
+// function gridView(dataMap){
+
+// }

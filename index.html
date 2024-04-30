@@ -5,9 +5,14 @@
         <meta charset = "UTF-8">
         <meta name = "viewport" content "width = device-width, initial-scale = 1">
         <link rel = "stylesheet" href = "style.css">
-        <script src = "sketch.js"></script>
-        <script src = "p5.min.js"></script>
     </head>
+
+    <style>
+        .node:hover{
+          stroke-width: 7px !important;
+          opacity: 1 !important;
+        }
+    </style>
 
     <body style = "background-color: #121212;">
         
@@ -16,22 +21,21 @@
             <!-- LOGO -->
             <section>
                 <div>
-                    <img class="sidebarLogo" src="images/logo.png" alt="logo">
+                    <img class="sidebarLogo" src="images/logo.png" alt="logo"">
                 </div>
             </section>
             
             <!-- SELECTED ALBUM/SONG/ARTIST -->
             <section>
                 <div>
-                    <img class="sidebarImg" src="Images/punisher.jpeg" alt="Sidebar Image">
+                    <img class="sidebarImg" src="Images/punisher.jpeg" alt="Sidebar Image" id = "albumArt">
                 </div>
             </section>
 
             <!-- ALBUM/SONG/ARTIST INFO-->
             <section>
-                <h2>5:45</h2>
-                <h1>I Know the End</h1>
-                <h2>Phoebe Bridgers</h2>
+                <h1 id = "songTitle"></h1>
+                <h2 id = "artistName"></h2>
                 <br>
                 <br>
             </section>
@@ -39,15 +43,15 @@
             <!-- ALBUM/SONG/ARTIST STATS-->
             <section>
                 <h3>Elapsed Time Listened</h3>
-                <h4>1 Hour 24 Minutes</h4>
+                <h4 id = "timeListened"></h4>
                 <br>
 
                 <h3>Times Listened</h3>
-                <h4>16 Listens</h4>
+                <h4 id = "plays"></h4>
                 <br>
 
                 <h3>Peak Listening Time</h3>
-                <h4>Mid-Morning</h4>
+                <h4 id = "peakTime"></h4>
                 <br>
             </section>
         </section>
@@ -91,7 +95,7 @@
 
 
         <!--DATA VISUALIZATION CANVAS-->
-        <div class = "dataVisualization" id = "sketch">
+        <div class = "dataVisualization" id = "my_dataviz">
         </div>
 
         <!--BOTTOM MENU BAR-->
@@ -129,4 +133,9 @@
             </div>
         </section>
     </body>
+
+    <script src = "p5.min.js"></script>
+    <script src = "https://d3js.org/d3.v7.min.js"></script>
+    <script src = "script.js"></script>
+
 </html>
