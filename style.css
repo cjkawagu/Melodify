@@ -4,32 +4,52 @@
 }
 
 .sidebar{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color:#212121;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 400px;
-    text-align: center;
-    box-sizing: border-box;
-	flex-direction: column;
-
-    .sidebarLogo{
-        height: 150px;
-        text-align: center;
-		position: relative;
-		top: 0px;
-    }
-
-	.sidebarImg{
-		height: 250px;
-		text-align: center;
-		border-radius: 20px;
-	}
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 400px;
+	height: 100vh;
+	overflow-y: auto;
+	z-index: 500;
+	background-color: #212121;
+	align-items: center;
+	text-align: center;
 }
+
+.sidebarLogo {
+    position: absolute;
+    top: 5px;  /* Position at the top with a small gap */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;  /* Ensures it's above other content */
+    height: 150px;  /* Your specified logo height */
+}
+
+.sidebarImg {
+    position: absolute; /* Ensures it does not flow behind the logo */
+    top: 130px; /* Logo's height + top + space = 150px + 10px + 10px space */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px; /* Adjust width as necessary */
+    z-index: 500; /* Below the logo */
+}
+
+.sidebarTrackAndArtist, .sidebarStats {
+    position: absolute; /* Absolute position to control the layout precisely */
+    left: 5%; /* Centering inside the sidebar */
+    width: 90%; /* Control width to fit inside the sidebar */
+    text-align: center; /* Center text if necessary */
+}
+
+.sidebarTrackAndArtist {
+    top: 450px; /* Below the image, adjust the 150px if image height changes */
+}
+
+.sidebarStats {
+    top: 600px; /* Below the TrackAndArtist, adjust 100px based on its content height */
+    z-index: 400; /* Below TrackAndArtist */
+}
+
 
 .topMenu{
 	margin-left: 400px;
@@ -44,29 +64,15 @@
     text-align: center;
     box-sizing: border-box;
 	flex-direction: row;
-}
-
-.bottomMenu{
-	margin-left: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    height: 10%;
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
-	flex-direction: row;
+	z-index: 200;
 }
 
 .dataVisualization{
 	width: calc(100% - 400px);
 	margin-left: 400px;
-	margin-top: 5%;
-	height: 80vh;
+	height: 100vh;
     position: fixed;
+	z-index: 100;
 }
 
 .background {
@@ -79,7 +85,7 @@ h1 {
 	color: #1DB954;
 	text-align: center;
 	font-family: "Circular Std";
-	font-size: 48px;
+	font-size: 36px;
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
@@ -99,7 +105,7 @@ h3 {
 	color: #B3B3B3;
 	text-align: center;
 	font-family: "Circular Std";
-	font-size: 18px;
+	font-size: 14px;
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
@@ -109,7 +115,7 @@ h4 {
 	color: #B3B3B3;
 	text-align: center;
 	font-family: "Circular Std";
-	font-size: 36px;
+	font-size: 32px;
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
@@ -137,37 +143,4 @@ h4 {
 .switch-toggle input:checked + label {
    background: #1DB954;
    border-radius: 20px;
-}
-
-.grid-container{
-	display: grid;
-	grid-template-columns: auto, auto, auto;
-	column-gap: 30px;
-	row-gap: 30px;
-}
-
-.grid-item{
-	background-color:#1DB954;
-	font-family: "Circular Std";
-	color: #fff;
-	border: 1px;
-	padding: 20px;
-	text-align: left;
-	border-radius: 10px;
-}
-
-.selected{
-	border-width: thick;
-	border-color: white;
-}
-
-.searchBar{
-	background-color: #535353;
-}
-
-.zoomButton{
-	background-color: #535353;
-	border-radius: 20px;
-	color: white;
-	height: 50px;
 }

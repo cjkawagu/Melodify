@@ -47,7 +47,7 @@ function loadListeningData() {
         .then(data => {
             globalData = data; // Store the data in the global variable
             console.log("Data loaded and stored globally:", globalData);
-            visualizeData(); // Now visualize the data
+            filterDataByTime(); // create the time constrainted arrays
         })
         .catch(error => {
             console.error("Error loading the data:", error);
@@ -55,7 +55,8 @@ function loadListeningData() {
 }
 
 function filterDataByTime() {
-    const now = new Date(); // Current date for reference
+    // date that the spotify data was requested
+    const now = new Date('February 28, 2024 11:28:00');
 
     // Helper function to subtract months from the current date
     function subtractMonths(numOfMonths) {
@@ -138,9 +139,20 @@ function aggregateSongData(data) {
 }
 
 
-function visualizeData() {
-    filterDataByTime();
-    currentData = aggregateSongData(globalData);
+function getSelectedTimePeriod() {
+    const selectedTime = document.querySelector('input[name="state-d"]:checked').id;
+    console.log("Selected Time Period:", selectedTime);
+    return selectedTime;
+}
+
+function getSelectedParameter() {
+    const selectedParameter = document.querySelector('input[name="state-f"]:checked').id;
+    console.log("Selected Parameter:", selectedParameter);
+    return selectedParameter;
+}
+
+function visualizeData(data, parameter) {
+    currentData = data;
     console.log("Current Data To Be Displayed:", currentData);
 
     if (!currentData || currentData.length === 0) {
@@ -148,27 +160,33 @@ function visualizeData() {
         return;
     }
 
-    // Size scale for circles based on plays
-    var maxPlays = d3.max(currentData, d => d.plays);
+    var maxVal;
+
+    if(parameter === "Time Listened"){
+        maxVal = d3.max(currentData, d => d.timePlayed);
+    }
+
+    if(parameter === "Plays"){
+        maxVal = d3.max(currentData, d => d.plays);
+    }
+
+    // Size scale for circles based on max val
     var size = d3.scaleSqrt() // Using square root scale for better visual differentiation
-      .domain([0, maxPlays])
+      .domain([0, maxVal])
       .range([5, 300]);
 
-    // Tooltip setup
-    var Tooltip = d3.select("#my_dataviz")
-      .append("div")
-      .style("opacity", 0)
-      .attr("class", "tooltip")
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "10px")
-      .style("position", "absolute"); // Ensure tooltip can move with mouse
+    function playsOrTime(d){
+        if(parameter === "Time Listened"){
+            return d.timePlayed;
+        }
 
+        if(parameter === "Plays"){
+            return d.plays;
+        }
+    }
 
     // Remove existing circles if any (this is crucial if you call visualizeData multiple times)
-    g.selectAll("circle").remove();
+    svg.selectAll('g > circle').remove()
 
     // Initialize the circles
     var node = g.selectAll("circle")
@@ -176,7 +194,7 @@ function visualizeData() {
       .enter()
       .append("circle")
         .attr("class", "node")
-        .attr("r", d => size(d.plays))
+        .attr("r", d => size(playsOrTime(d)))
         .attr("cx", width / 2)
         .attr("cy", height / 2)
         .style("fill", "green")
@@ -194,9 +212,9 @@ function visualizeData() {
 
             document.getElementById("peakTime").textContent = d.peakListen;
 
-            // Update the sidebar image
-            const albumArtUrl = await getAlbumArtUrl(d.uri);
-            document.getElementById("albumArt").src = albumArtUrl || "path/to/default/image.jpg";
+            // // Update the sidebar image
+            // const albumArtUrl = await getAlbumArtUrl(d.uri);
+            // document.getElementById("albumArt").src = albumArtUrl || "path/to/default/image.jpg";
         })
         .on("mousemove", function(event) {
             Tooltip
@@ -214,11 +232,13 @@ function visualizeData() {
             document.getElementById("artistName").textContent = "";
         });
 
+        svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(0.1)); // Example: zoom out to 50%
+
     // force simulation
     var simulation = d3.forceSimulation(currentData)
         .force("charge", d3.forceManyBody().strength(5))
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collision", d3.forceCollide().radius(d => size(d.plays) + 20))
+        .force("collision", d3.forceCollide().radius(d => size(playsOrTime(d)) + 20))
         .on("tick", () => {
             node
                 .attr("cx", d => d.x)
@@ -315,4 +335,34 @@ function getAlbumArtUrl(trackUri) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", loadListeningData); // Ensure data is loaded after the document is ready
+function visualizeDataHelper(){
+    var selectedTime2 = getSelectedTimePeriod(); // Ensure this is checked after data is loaded
+    var selectedParameter2 = getSelectedParameter(); // Ensure this is checked after data is loaded
+
+    if (selectedTime2 === "1 Month") {
+        visualizeData(oneMonthFilteredData, selectedParameter2);
+    } else if (selectedTime2 === "6 Months") {
+        visualizeData(sixMonthFilteredData, selectedParameter2);
+    } else if (selectedTime === "1 Year") {
+        visualizeData(oneYearFilteredData, selectedParameter2);
+    }
+}
+
+// Adjust the DOMContentLoaded handler to use the promise
+document.addEventListener("DOMContentLoaded", function(){
+    loadListeningData().then(() => {
+        const selectedTime = getSelectedTimePeriod(); // Ensure this is checked after data is loaded
+        console.log("Selected Time Period after data load:", selectedTime);
+
+        const selectedParameter = getSelectedParameter(); // Ensure this is checked after data is loaded
+        console.log("Selected Parameter after data load:", selectedTime);
+
+        if (selectedTime === "1 Month") {
+            visualizeData(oneMonthFilteredData, selectedParameter);
+        } else if (selectedTime === "6 Months") {
+            visualizeData(sixMonthFilteredData, selectedParameter);
+        } else if (selectedTime === "1 Year") {
+            visualizeData(oneYearFilteredData, selectedParameter);
+        }
+    });
+});

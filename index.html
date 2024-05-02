@@ -28,12 +28,12 @@
             <!-- SELECTED ALBUM/SONG/ARTIST -->
             <section>
                 <div>
-                    <img class="sidebarImg" src="Images/punisher.jpeg" alt="Sidebar Image" id = "albumArt">
+                    <img class="sidebarImg" src="Images/generic_album.jpeg" alt="Sidebar Image" id = "albumArt">
                 </div>
             </section>
 
             <!-- ALBUM/SONG/ARTIST INFO-->
-            <section>
+            <section class = "sidebarTrackAndArtist">
                 <h1 id = "songTitle"></h1>
                 <h2 id = "artistName"></h2>
                 <br>
@@ -41,7 +41,7 @@
             </section>
 
             <!-- ALBUM/SONG/ARTIST STATS-->
-            <section>
+            <section class = "sidebarStats">
                 <h3>Elapsed Time Listened</h3>
                 <h4 id = "timeListened"></h4>
                 <br>
@@ -63,75 +63,29 @@
             <div class="switch-toggle switch-3 switch-candy" style = "margin-left: 30px;">
 
                 <input id="1 Month" name="state-d" type="radio" checked="" />
-                <label for="1 Month" onclick="showTimeSelection('1month')">1 Month</label>
+                <label for="1 Month" onclick="svg.selectAll('g > circle').remove().then(visualizeDataHelper());">1 Month</label>
               
                 <input id="6 Months" name="state-d" type="radio" checked="checked" />
-                <label for="6 Months" class="disabled" onclick="showTimeSelection('6month')">6 Months</label>
+                <label for="6 Months" class="disabled" onclick="svg.selectAll('g > circle').remove().then(visualizeDataHelper());">6 Months</label>
               
                 <input id="1 Year" name="state-d" type="radio" />
-                <label for="1 Year" onclick="showTimeSelection('1Year')">1 Year</label>
+                <label for="1 Year" onclick="svg.selectAll('g > circle').remove().then(visualizeDataHelper());">1 Year</label>
               
             </div>
-            
-            <!--Category Selector-->
-            <div class="switch-toggle switch-3 switch-candy" style = "margin-right: 30px; margin-left: 30px;">
 
-                <input id="Albums" name="state-e" type="radio" checked="" />
-                <label for="Albums" onclick="">Albums</label>
-                
-                <input id="Songs" name="state-e" type="radio" checked="checked" />
-                <label for="Songs" class="disabled" onclick="">Songs</label>
-                
-                <input id="Artists" name="state-e" type="radio" />
-                <label for="Artists" onclick="">Artists</label>
+            <div class="switch-toggle switch-3 switch-candy" style = "margin-left: 30px;">
+                <input id="Time Listened" name="state-f" type="radio" checked="checked" />
+                <label for="Time Listened" class="disabled" onclick="svg.selectAll('g > circle').remove().then(visualizeDataHelper());">Time Listened</label>
+              
+                <input id="Plays" name="state-f" type="radio" />
+                <label for="Plays" onclick="svg.selectAll('g > circle').remove().then(visualizeDataHelper());">Plays</label>         
             </div>
-
-            <!--Search Bar-->
-            <div class="searchBar">
-                <input type="text" placeholder="Search..">
-            </div>
-
         </section>
 
 
         <!--DATA VISUALIZATION CANVAS-->
         <div class = "dataVisualization" id = "my_dataviz">
         </div>
-
-        <!--BOTTOM MENU BAR-->
-        <section class = "bottomMenu">
-            <!--Sorting Type Selector-->
-            <div class="switch-toggle switch-3 switch-candy" style = "margin-left: 30px;">
-
-                <input id="Alphabetically" name="state-f" type="radio" checked="" />
-                <label for="Alphabetically" onclick="">Alphabetically</label>
-              
-                <input id="Elapsed Time Listened" name="state-f" type="radio" checked="checked" />
-                <label for="Elapsed Time Listened" class="disabled" onclick="">Elapsed Time Listened</label>
-              
-                <input id="Time Listened" name="state-f" type="radio" />
-                <label for="Time Listened" onclick="">Time Listened</label>         
-            </div>
-            
-            <!--Category Selector-->
-            <div class="switch-toggle switch-3 switch-candy" style = "margin-right: 30px; margin-left: 30px;">
-
-                <input id="Bubble" name="state-g" type="radio" checked="" />
-                <label for="Bubble" onclick="">Bubble</label>
-                
-                <input id="List" name="state-g" type="radio" checked="checked" />
-                <label for="List" class="disabled" onclick="">List</label>
-                
-                <input id="Grid" name="state-g" type="radio" />
-                <label for="Grid" onclick="">Grid</label>
-            </div>
-
-            <!--Zoom Controls-->
-            <div>
-                <button class = "zoomButton" onclick="zoomOut()">Zoom Out</button>
-                <button class = "zoomButton" onclick="zoomIn()">Zoom In</button>
-            </div>
-        </section>
     </body>
 
     <script src = "p5.min.js"></script>
